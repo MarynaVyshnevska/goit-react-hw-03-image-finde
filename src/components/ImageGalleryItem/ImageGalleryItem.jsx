@@ -12,10 +12,10 @@ export default class ImageGalleryItem extends Component{
     }
 
     getBigUrl = (event) => {
-        console.log(event.target.dataset.bigImg);
-        // this.setState(({ bigImgUrl }) => ({
-            
-        // }))
+        // console.log(event.target.dataset.big);
+        this.setState(({ bigImgUrl }) => ({
+            bigImgUrl: event.target.dataset.big,
+        }));
     }
     render() {
         // const { id, smallImgUrl, bigImgUrl, tag } = this.setState;
@@ -26,7 +26,7 @@ export default class ImageGalleryItem extends Component{
                         <GalleryItemImg
                             src={image.webformatURL}
                             alt={image.tags}
-                            data-bigImg={image.largeImageURL}
+                            data-big={image.largeImageURL}
                             loading="lazy" 
                             onClick={this.getBigUrl}    
                         />

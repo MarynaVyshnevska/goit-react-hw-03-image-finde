@@ -4,6 +4,7 @@ import {getImages, PER_PAGE} from '../services/pixabayAPI';
 
 import Searchbar from "./Searchbar";
 import ImageGallery from "./ImageGallery";
+import Button from "./Button";
 
 export class App extends Component {
   state = {
@@ -34,23 +35,27 @@ export class App extends Component {
       this.setState({ isLoading: true });
       const { hits } = await getImages(query, page);
       this.setState( prevState => ({
-        images: [...hits],
+        images: [...prevState.images, ...hits],
         isLoading: false,
       }))
     }
-    console.log(this.state);
+    // console.log(this.state);
   }
   
+  loadMore = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }))
+  };
   render() {
-    const { images, } = this.state;
+    const { images, isLoading, totalPages, page } = this.state;
+    const isLoadMore = totalPages !== 0 && totalPages > page;
     return (
       <>
         <Searchbar onSearch={this.handleSearch} />
         
-          <ImageGallery images={images} />
-       
-          
+        <ImageGallery images={images} />
         
+        {isLoadMore && <Button handleMoreImage={this.loadMore} />}
+        {/* {isLoading && } */}
       </>
     );
   }
