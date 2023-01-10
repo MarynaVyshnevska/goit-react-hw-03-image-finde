@@ -1,41 +1,57 @@
+import Modal from 'components/Modal';
 import React, { Component } from 'react';
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { GalleryItem, GalleryItemImg } from './ImageGalleryItem.styled';
-// import PropTypes from 'prop-types';
+
+import PropTypes from 'prop-types';
 
 export default class ImageGalleryItem extends Component{
     state = {
-        id: '',
-        smallImgUrl: '',
-        bigImgUrl: '',
-        // tag: ''
+        showModal: false,
+        
     }
 
-    getBigUrl = (event) => {
-        // console.log(event.target.dataset.big);
-        this.setState(({ bigImgUrl }) => ({
-            bigImgUrl: event.target.dataset.big,
+    toggleModal = () => {
+        this.setState(({ showModal }) => ({
+            showModal: !showModal,
         }));
+        // console.log(this.state.showModal)
     }
+
     render() {
-        // const { id, smallImgUrl, bigImgUrl, tag } = this.setState;
+        const { id, webformatURL, tags, largeImageURL } = this.props;
+        const { showModal } = this.state;
         return (
             <>
-                {this.props.images.map(image => (
-                    <GalleryItem key={image.id}>
-                        <GalleryItemImg
-                            src={image.webformatURL}
-                            alt={image.tags}
-                            data-big={image.largeImageURL}
-                            loading="lazy" 
-                            onClick={this.getBigUrl}    
-                        />
-                    </GalleryItem>
-                ))}
+                <GalleryItem key={id}>
+                    <GalleryItemImg
+                        src={webformatURL}
+                        alt={tags}
+                        loading="lazy" 
+                        onClick={this.toggleModal}   
+                    />
+                </GalleryItem>
+                
+                {showModal && (
+                    < Modal onClose={this.toggleModal}>
+                        <LazyLoadImage src={largeImageURL} alt={tags} />
+                    </Modal>
+                       
+                    
+                                       
+                )}
             </>
             
         )
     }
+}
+ImageGalleryItem.propTypes = {
+    showModal: PropTypes.bool.isRequired,
+    id: PropTypes.string.isRequired,
+    webformatURL: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
+    toggleModal: PropTypes.func,
 }
 
 // largeImageURL, tags, webformatURL, id

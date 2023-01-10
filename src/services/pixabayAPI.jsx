@@ -1,4 +1,5 @@
 import axios from "axios";
+import PropTypes from 'prop-types';
 
 const URL = 'https://pixabay.com/api/?';
 const PIXABAY_KEY = '31212742-df383ab72ff5d16a82f89e026';
@@ -31,5 +32,8 @@ export const getImages = async (query, page) => {
     }
     
 }
-
+getImages.propTypes = {
+    query: PropTypes.string.isRequired,
+    page: PropTypes.number.isRequired,
+}
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import { SearchbarForm, SearchForm, SearchInput } from './Searchbar.styled';
-import { FiEye } from "react-icons/fi";
+import { SlEyeglass } from "react-icons/sl";
 
 import PropTypes from 'prop-types';
 
@@ -30,7 +30,7 @@ export default class Searchbar extends Component {
                 <SearchbarForm>
                     <SearchForm>
                         <button type="submit" >
-                            <span>Search </span><FiEye size={20} />
+                            <span>Search </span><SlEyeglass size={20} />
                         </button>
 
                         <SearchInput
@@ -51,5 +51,6 @@ export default class Searchbar extends Component {
 
 Searchbar.propTypes = {
     query: PropTypes.string,
-    onSubmit: PropTypes.func.isRequired,
+    onSearch: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func,
 }
