@@ -11,10 +11,14 @@ export default class ImageGalleryItem extends Component{
         
     }
 
-    toggleModal = () => {
-        this.setState(({ showModal }) => ({
-            showModal: !showModal,
+     toggleModal = () => {
+        this.setState(prevState => ({
+            showModal: !prevState.showModal,
         }));
+    // toggleModal = () => {
+    //     this.setState(({ showModal }) => ({
+    //         showModal: !showModal,
+    //     }));
         // console.log(this.state.showModal)
     }
 
@@ -46,8 +50,8 @@ export default class ImageGalleryItem extends Component{
     }
 }
 ImageGalleryItem.propTypes = {
-    showModal: PropTypes.bool.isRequired,
-    id: PropTypes.string.isRequired,
+    showModal: PropTypes.bool,
+    id: PropTypes.number.isRequired,
     webformatURL: PropTypes.string.isRequired,
     largeImageURL: PropTypes.string.isRequired,
     tags: PropTypes.string.isRequired,

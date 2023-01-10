@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import { SearchbarForm, SearchForm, SearchInput } from './Searchbar.styled';
 import { SlEyeglass } from "react-icons/sl";
+// import { toast } from 'react-toastify';
 
 import PropTypes from 'prop-types';
 
@@ -16,8 +17,23 @@ export default class Searchbar extends Component {
         query: '',
     };
 
+    // isChangeQuery = event => {
+    //     this.setState({query: event.currentTarget.value.toLowerCase().trim()})
+    // }
+    // handleSubmit = event => {
+    //     event.preventDefault();
+    //     const { query } = this.setState;
+    //     if (!query.length) {
+    //         toast.warning('Enter new search, please')
+    //         return
+    //     }
+    //     this.props.onSearch(query);
+    //     this.setState({ query: '' });
+    //     // resetForm();
+    // }
     handleSubmit = (values, actions) => {
-        this.props.onSearch(values['query']);
+        this.props.onSearch(values['query'].toLowerCase());
+        this.setState({ query: '' });
         actions.resetForm();
     }
 
