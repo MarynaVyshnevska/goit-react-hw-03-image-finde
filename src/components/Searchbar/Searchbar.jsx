@@ -16,14 +16,14 @@ export default class Searchbar extends Component {
 
     state = {
         query: '',
-        page: 1,
+        
     };
 
 
     handleSubmit = (values, actions) => {
         this.props.onSearch(values['query'].toLowerCase().trim());
 
-        this.setState({ query: '', page: 1 });
+        this.setState({ query: ''});
         
         actions.resetForm();
     }
