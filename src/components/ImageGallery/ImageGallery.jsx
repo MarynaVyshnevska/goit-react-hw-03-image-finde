@@ -42,17 +42,12 @@ export default class ImageGallery extends Component {
             const { hits, total } = await getImages(query, page);
             // console.log('hi', total);
             if (total === 0) {
-            //                 toast.error('🦄 Please, enter new search!', {
-            //     position: "top-left",
-            // });
-                // console.log('Blin');
-
-
                 Notify.warning('Please, enter new search!');
             }
             this.setState({
                 images: hits,
                 total,
+                page,
                 isLoading: false,
                 totalPages: Math.floor(total / PER_PAGE),
             });

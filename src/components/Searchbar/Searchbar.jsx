@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 const initialValues ={
     query: '',
+    
    
 }
 
@@ -15,14 +16,15 @@ export default class Searchbar extends Component {
 
     state = {
         query: '',
+        page: 1,
     };
 
 
     handleSubmit = (values, actions) => {
         this.props.onSearch(values['query'].toLowerCase().trim());
 
-        this.setState({ query: '' });
-
+        this.setState({ query: '', page: 1 });
+        
         actions.resetForm();
     }
 
