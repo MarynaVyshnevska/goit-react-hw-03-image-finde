@@ -15,17 +15,20 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio'
 export default class ImageGallery extends Component {
     state = {
         images: [],
-        page: 1,
         total: 0,
         error: null,
         totalPages: 0,
         isLoading: false,
+        page: 1,
+        
     }
     
     async componentDidUpdate(prevProps, prevState) {
         // console.log('images:',this.state.images);
-        const { query } = this.props;
+        const { query} = this.props;
         const { page } = this.state;
+        console.log('prevState.page', prevState.page);
+        console.log('this.state.page', page);
 
         if (page !== prevState.page){
             this.setState({ isLoading: true });
@@ -38,7 +41,9 @@ export default class ImageGallery extends Component {
             }));
         }
         if (query !== prevProps.query) {
-            this.setState({ isLoading: true, images: [] });
+            
+            this.setState({ isLoading: true, images: [], page: 1 });
+            // console.log('this.state.page', this.state);
             const { hits, total } = await getImages(query, page);
             // console.log('hi', total);
             if (total === 0) {
@@ -47,7 +52,6 @@ export default class ImageGallery extends Component {
             this.setState({
                 images: hits,
                 total,
-                page,
                 isLoading: false,
                 totalPages: Math.floor(total / PER_PAGE),
             });
