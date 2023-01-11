@@ -1,5 +1,6 @@
 import axios from "axios";
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 
 const URL = 'https://pixabay.com/api/?';
 const PIXABAY_KEY = '31212742-df383ab72ff5d16a82f89e026';
@@ -22,13 +23,28 @@ export const getImages = async (query, page) => {
         })
 
         const response = await axios.get(`${URL}${params}`);
-        
-        if (!response) {
-            throw new Error ('Sorry, we have not same content')
+        // console.log(response.data.total);
+        if (response.data.total === 0) {
+                       
+            toast.error('🦄 Please, enter new search!', {
+                position: "top-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            // toast.error('🦄 Please, enter new search!', {
+            //     position: "top-left",
+            // });
         }
         return response.data;
+        
     } catch (error) {
         console.log(error.message);
+        // throw new Error ('Something goes wrong');
     }
     
 }

@@ -4,10 +4,13 @@ import ImageGalleryItem from 'components/ImageGalleryItem';
 import Loader from 'components/Loader';
 import Button from 'components/Button';
 import { getImages, PER_PAGE } from '../../services/pixabayAPI';
-import { toast } from 'react-toastify';
+
 
 
 import PropTypes from 'prop-types';
+// import { toast } from 'react-toastify';
+import { Notify } from 'notiflix/build/notiflix-notify-aio'
+
 
 export default class ImageGallery extends Component {
     state = {
@@ -15,83 +18,63 @@ export default class ImageGallery extends Component {
         page: 1,
         total: 0,
         error: null,
-        status: 'idle',
         totalPages: 0,
+        isLoading: false,
     }
     
-    componentDidUpdate(prevProps, prevState) {
+    async componentDidUpdate(prevProps, prevState) {
         // console.log('images:',this.state.images);
-        if (this.props.query !== prevProps.query) {
-            this.setState({ status: 'pending', images: [] });
-            this.getImagesArray(this.props.query, this.state.page);
-        } else if (this.state.page !== prevState.page){
-            this.setState({ status: 'pending' });
-            this.getImagesArray(this.props.query, this.state.page);
-        }
-    }
-
-
-    getImagesArray = () => {
         const { query } = this.props;
         const { page } = this.state;
 
-        try {
-            // const { hits, total } = getImages(query, page);
-            const imagesArray = getImages(query, page);
-            imagesArray.then(data => {
-                const { hits, total } = data;
-                if (!hits.length) {
-                    toast.error('🦄 Please, enter new search!', {
-                        position: "top-left",
-                    });
-
-                    return this.setState({ status: 'idle' })
-                }
-                const newImages = hits.map(({ id, tags, webformatURL, largeImageURL }) =>
-                    ({ id, tags, webformatURL, largeImageURL, }));
-                
-                this.setState(prevState => ({
-                    images: [...prevState.images, ...newImages],
-                    total,
-                    status: 'resolved',
-                    totalPages: Math.floor(total / PER_PAGE),
-                }));
-                // console.log(this.state.images);
-            });
+        if (page !== prevState.page){
+            this.setState({ isLoading: true });
+            const { hits } = await getImages(query, page);
             
-            
-        } catch (error) {
             this.setState(prevState => ({
-                error,
-                total: 0,
-                status: 'rejected',
-            }))
+                images: [...prevState.images, ...hits],
+                isLoading: false,
+                
+            }));
         }
-    }
-    isLoader = () => {
+        if (query !== prevProps.query) {
+            this.setState({ isLoading: true, images: [] });
+            const { hits, total } = await getImages(query, page);
+            // console.log('hi', total);
+            if (total === 0) {
+            //                 toast.error('🦄 Please, enter new search!', {
+            //     position: "top-left",
+            // });
+                // console.log('Blin');
+
+
+                Notify.warning('Please, enter new search!');
+            }
+            this.setState({
+                images: hits,
+                total,
+                isLoading: false,
+                totalPages: Math.floor(total / PER_PAGE),
+            });
+
+            
+        }
         
     }
+
+
+   
     loadMore = () => {
         this.setState(prevState => ({ page: prevState.page + 1 }))
-        console.log('hi, this is load more');
+        console.log('hi, this is load more, page', this.state.page);
     };
 
     render() {
-        const { images, status, totalPages, page  } = this.state;
-        const isLoadMore = totalPages > page; 
-        // console.log(this.state);
-        
-
-        
-        if (status === 'rejected') {
-            return (
-                <p>Oops... Try again</p>
-                // <h2>{error.message}</h2>
-            )
-        }
-        if (status === 'resolved') {
-             
-            return (
+        const { images, isLoading, totalPages, page } = this.state;
+        const isLoadMore = totalPages > page;
+            
+        return (
+            <>
                 <GalleryContainer>
                     {images.map(({ id, largeImageURL, webformatURL, tags }) => (
                         <ImageGalleryItem
@@ -102,26 +85,25 @@ export default class ImageGallery extends Component {
                             tags={tags}
                         />
                     ))}
-                    {status === 'pending' && <Loader/>}
-                    {isLoadMore && <Button handleMoreImage={this.loadMore}/>}
-                </GalleryContainer>
-            )
-        }
-
-    //     if (status === 'pending') {
-    //         return (
-    //             <Loader/>
-    //             // <div>Крутим...</div>
-    //         )
-    //     }
+                    
+                    </GalleryContainer>
+                {isLoading && <Loader />}
+                {isLoadMore && <Button handleMoreImage={this.loadMore} />}
+            </>
+        )
     }
 }
+    
 
-// images: [],
-//   
+   
 ImageGallery.propTypes = {
     query: PropTypes.string,
-    
-    
-
+    images: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            largeImageURL: PropTypes.string.isRequired,
+            webformatURL: PropTypes.string.isRequired,
+            tags: PropTypes.string.isRequired,
+        })
+    )
 }

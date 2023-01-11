@@ -5,7 +5,8 @@ import { LoaderContainer} from './Loader.styled';
 const Loader = () => {
     return (
         <LoaderContainer>
-            <ThreeCircles 
+            <div>
+                <ThreeCircles 
                 height="100"
                 width="100"
                 color="#b73c58"
@@ -16,7 +17,8 @@ const Loader = () => {
                 outerCircleColor=""
                 innerCircleColor=""
                 middleCircleColor=""
-            />
+                />
+            </div>
         </LoaderContainer>
         
     )

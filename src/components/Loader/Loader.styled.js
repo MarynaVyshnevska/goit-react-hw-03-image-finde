@@ -4,7 +4,8 @@ export const LoaderContainer = styled.div`
     width: 100%;
     display: flex;
 
-    & InfinitySpin {
+    & div {
         margin: 24px auto;
     }
 `;
+

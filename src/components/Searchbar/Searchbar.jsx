@@ -17,23 +17,12 @@ export default class Searchbar extends Component {
         query: '',
     };
 
-    // isChangeQuery = event => {
-    //     this.setState({query: event.currentTarget.value.toLowerCase().trim()})
-    // }
-    // handleSubmit = event => {
-    //     event.preventDefault();
-    //     const { query } = this.setState;
-    //     if (!query.length) {
-    //         toast.warning('Enter new search, please')
-    //         return
-    //     }
-    //     this.props.onSearch(query);
-    //     this.setState({ query: '' });
-    //     // resetForm();
-    // }
+
     handleSubmit = (values, actions) => {
-        this.props.onSearch(values['query'].toLowerCase());
+        this.props.onSearch(values['query'].toLowerCase().trim());
+
         this.setState({ query: '' });
+
         actions.resetForm();
     }
 

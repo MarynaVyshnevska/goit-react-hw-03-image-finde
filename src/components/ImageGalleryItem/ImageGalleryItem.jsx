@@ -11,7 +11,7 @@ export default class ImageGalleryItem extends Component{
         
     }
 
-     toggleModal = () => {
+    toggleModal = () => {
         this.setState(prevState => ({
             showModal: !prevState.showModal,
         }));
@@ -40,9 +40,6 @@ export default class ImageGalleryItem extends Component{
                     < Modal onClose={this.toggleModal}>
                         <LazyLoadImage src={largeImageURL} alt={tags} />
                     </Modal>
-                       
-                    
-                                       
                 )}
             </>
             
@@ -52,8 +49,8 @@ export default class ImageGalleryItem extends Component{
 ImageGalleryItem.propTypes = {
     showModal: PropTypes.bool,
     id: PropTypes.number.isRequired,
-    webformatURL: PropTypes.string.isRequired,
     largeImageURL: PropTypes.string.isRequired,
+    webformatURL: PropTypes.string.isRequired,
     tags: PropTypes.string.isRequired,
     toggleModal: PropTypes.func,
 }
