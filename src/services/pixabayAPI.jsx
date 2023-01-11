@@ -2,7 +2,6 @@ import axios from "axios";
 import PropTypes from 'prop-types';
 
 const URL = 'https://pixabay.com/api/?';
-// const PIXABAY_KEY = '31431099-cb6424a99d97f67db3bc0cdc7';
 const PIXABAY_KEY = '31212742-df383ab72ff5d16a82f89e026';
 const IMAGE_TYPE = 'photo';
 const SAFESEARCH = 'true';

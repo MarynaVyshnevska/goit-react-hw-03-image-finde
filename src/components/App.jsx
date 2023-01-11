@@ -8,12 +8,13 @@ import ImageGallery from "./ImageGallery";
 export class App extends Component {
   state = {
     query: '',
-
+    page: 1,
   }
 
   handleSearch = (query) => {
     // console.log('query:', query);
     this.setState({ query });
+    this.setState({ page: 1 });//??
   }
 
   

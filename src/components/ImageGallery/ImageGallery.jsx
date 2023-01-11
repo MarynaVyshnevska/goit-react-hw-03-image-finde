@@ -68,10 +68,12 @@ export default class ImageGallery extends Component {
             }))
         }
     }
-
+    isLoader = () => {
+        
+    }
     loadMore = () => {
         this.setState(prevState => ({ page: prevState.page + 1 }))
-        console.log('hi');
+        console.log('hi, this is load more');
     };
 
     render() {
@@ -80,12 +82,7 @@ export default class ImageGallery extends Component {
         // console.log(this.state);
         
 
-        if (status === 'pending') {
-            return (
-                <Loader/>
-                // <div>Крутим...</div>
-            )
-        }
+        
         if (status === 'rejected') {
             return (
                 <p>Oops... Try again</p>
@@ -105,10 +102,18 @@ export default class ImageGallery extends Component {
                             tags={tags}
                         />
                     ))}
+                    {status === 'pending' && <Loader/>}
                     {isLoadMore && <Button handleMoreImage={this.loadMore}/>}
                 </GalleryContainer>
             )
         }
+
+    //     if (status === 'pending') {
+    //         return (
+    //             <Loader/>
+    //             // <div>Крутим...</div>
+    //         )
+    //     }
     }
 }
 

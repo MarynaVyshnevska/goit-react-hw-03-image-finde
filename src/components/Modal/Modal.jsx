@@ -44,7 +44,7 @@ export default class Modal extends Component {
     }
 }
 Modal.propTypes = {
-    query: PropTypes.string.isRequired,
-    handleOverlayClose: PropTypes.func.isRequired,
+    query: PropTypes.string,
+    handleOverlayClose: PropTypes.func,
     onClose: PropTypes.func.isRequired,
 }
