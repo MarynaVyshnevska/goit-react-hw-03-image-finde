@@ -65,7 +65,7 @@ export default class ImageGallery extends Component {
    
     loadMore = () => {
         this.setState(prevState => ({ page: prevState.page + 1 }))
-        console.log('hi, this is load more, page', this.props.page);
+        console.log('hi, this is load more, page', this.state.page);
     };
 
     render() {
