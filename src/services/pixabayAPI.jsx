@@ -7,7 +7,7 @@ const PIXABAY_KEY = '31212742-df383ab72ff5d16a82f89e026';
 const IMAGE_TYPE = 'photo';
 const SAFESEARCH = 'true';
 const ORDER = 'latest';
-const ORIENTATION = 'horizontal';
+
 export const PER_PAGE = 12;
 
 export const getImages = async (query, page) => {
@@ -17,7 +17,7 @@ export const getImages = async (query, page) => {
             image_type: IMAGE_TYPE,
             safesearch: SAFESEARCH,
             order: ORDER,
-            orientation: ORIENTATION,
+
             per_page: PER_PAGE,
             q: query,
             page: page,

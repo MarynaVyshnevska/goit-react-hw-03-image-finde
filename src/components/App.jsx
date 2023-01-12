@@ -8,7 +8,7 @@ import ImageGallery from "./ImageGallery";
 export class App extends Component {
   state = {
     query: '',
-    // page: 1,
+    // page: 1, //** */
   }
 
   handleSearch = (query) => {
@@ -19,7 +19,7 @@ export class App extends Component {
 
   
   render() {
-    const { query } = this.state;
+    const { query} = this.state;
     // const { query, page } = this.state;
     return (
       <>
