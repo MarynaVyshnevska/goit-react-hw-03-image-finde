@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import { Overlay, ModalContainer } from './Modal.styled';
@@ -44,7 +43,8 @@ export default class Modal extends Component {
     }
 }
 Modal.propTypes = {
-    query: PropTypes.string,
     handleOverlayClose: PropTypes.func,
+    onClick: PropTypes.func,
     onClose: PropTypes.func.isRequired,
+    
 }

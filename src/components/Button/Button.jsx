@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { ButtonLoadMore, ButtonContainer } from './Button.styled';
 
-const Button = ({ handleMoreImage }) => {
+const Button = ({ handleLoadMoreImage }) => {
     return (
         <ButtonContainer>
-            <ButtonLoadMore type='button' onClick={handleMoreImage}>
+            <ButtonLoadMore type='button' onClick={handleLoadMoreImage}>
                 Load more
             </ButtonLoadMore>
         </ButtonContainer>
@@ -16,5 +16,5 @@ const Button = ({ handleMoreImage }) => {
 export default Button;
 
 Button.propTypes = {
-    handleMoreImage: PropTypes.func,
+    onClick: PropTypes.func,
 }
